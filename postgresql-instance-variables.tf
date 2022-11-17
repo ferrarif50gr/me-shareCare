@@ -1,7 +1,7 @@
 # database instance settings
 variable db_version {
   description = "The version of of the database. For example, POSTGRES_9_6 or POSTGRES_11"
-  default = "POSTGRES_11"
+  default = "POSTGRES_12"
 }
 variable db_tier {
   description = "The machine tier (First Generation) or type (Second Generation). Reference: https://cloud.google.com/sql/pricing"
@@ -55,7 +55,7 @@ variable db_user_host {
 }
 variable db_user_password {
   description = "The password for the default user. If not set, a random one will be generated and available in the generated_user_password output variable."
-  default = ""
+  default = "123"
 }
 variable db_zone {
     description = "Zone that the db will be located"
@@ -71,5 +71,5 @@ variable app_name {
 }
 variable app_project {
     description = "Project name"
-    default = "Share-project"
+    default = "lloyds-advk8s-t1"
 }

@@ -1,14 +1,18 @@
 variable "project_id" {
   description = "project id"
+  default = "lloyds-advk8s-t1"
 }
 
 variable "region" {
   description = "region"
+  default = "europe-west1"    
 }
 
 provider "google" {
   project = var.project_id
   region  = var.region
+  zone    = "europe-west1-b"
+  credentials = file("cloud-tfadmin.json")
 }
 
 # VPC

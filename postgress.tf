@@ -25,21 +25,21 @@ resource "google_sql_database_instance" "postgresql" {
     disk_type = "${var.db_disk_type}"
     pricing_plan = "${var.db_pricing_plan}"
     
-    location_preference {
-      zone = "${var.db_zone}"
-    }
+  #  location_preference {
+  #    zone = "${var.db_zone}"
+  #  }
    
-    maintenance_window {
-      day  = "7"  # sunday
-      hour = "3" # 3am
-    }
+  #  maintenance_window {
+  #    day  = "7"  # sunday
+  #    hour = "3" # 3am
+  #  }
 
    
-    backup_configuration {
-      binary_log_enabled = false
-      enabled = true
-      start_time = "00:00"
-    }
+ #   backup_configuration {
+ #     binary_log_enabled = false
+ #     enabled = true
+ #     start_time = "00:00"
+ #   }
    
     ip_configuration {
       ipv4_enabled = "true"
@@ -50,7 +50,7 @@ resource "google_sql_database_instance" "postgresql" {
   }
 }
 
-# create database
+# create database postgres
 resource "google_sql_database" "postgresql_db" {
   name = "${var.db_name}"
   project = "${var.app_project}"
@@ -58,6 +58,43 @@ resource "google_sql_database" "postgresql_db" {
   charset = "${var.db_charset}"
   collation = "${var.db_collation}"
 }
+
+# create database sharecare-charity
+resource "google_sql_database" "db-charity" {
+  name = "${var.db_name}-charity"
+  project = "${var.app_project}"
+  instance = "${google_sql_database_instance.postgresql.name}"
+  charset = "${var.db_charset}"
+  collation = "${var.db_collation}"
+}
+
+# create database sharecare-media
+resource "google_sql_database" "db-media" {
+  name = "${var.db_name}-media"
+  project = "${var.app_project}"
+  instance = "${google_sql_database_instance.postgresql.name}"
+  charset = "${var.db_charset}"
+  collation = "${var.db_collation}"
+}
+
+# create database sharecare-post
+resource "google_sql_database" "db-post" {
+  name = "${var.db_name}-post"
+  project = "${var.app_project}"
+  instance = "${google_sql_database_instance.postgresql.name}"
+  charset = "${var.db_charset}"
+  collation = "${var.db_collation}"
+}
+
+# create database sharecare-user
+resource "google_sql_database" "db-user" {
+  name = "${var.db_name}-user"
+  project = "${var.app_project}"
+  instance = "${google_sql_database_instance.postgresql.name}"
+  charset = "${var.db_charset}"
+  collation = "${var.db_collation}"
+}
+
 
 # create user
 resource "random_id" "user_password" {
