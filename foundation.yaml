@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: foundation-deployment 
+  labels: 
+    deploy: foundation 
+spec: 
+  replicas: 2 
+  selector: 
+    matchLabels: 
+      app: foundation 
+  template:
+    metadata:
+      labels:
+        app: foundation
+    spec:
+      containers:
+      - image: "eu.gcr.io/lloyds-advk8s-t1/sharecare/foundation:1.0"
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        name: foundation
+        ports:
+        - containerPort: 8081
+          name: http
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foundation
+spec:
+  type: ClusterIP
+  selector:
+    app: foundation
+  ports:
+  - protocol: TCP
+    name: foundation-http
+    port: 80
+    targetPort: 8081
